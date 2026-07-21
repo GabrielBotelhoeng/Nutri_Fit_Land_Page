@@ -39,7 +39,7 @@ export default function HowItWorks() {
       <div className="relative z-[2] max-w-[1152px] mx-auto px-4 md:px-6 lg:px-8">
         <div className="text-center mb-20 md:mb-28">
           <p className="eyebrow mb-7">Como eu trabalho</p>
-          <h2 className="h-2 mb-8 md:mb-10 text-balance">
+          <h2 className="hd-2 mb-8 md:mb-10 text-balance">
             Três passos pra você sair do achismo
           </h2>
           <p className="lead max-w-lg mx-auto text-pretty">

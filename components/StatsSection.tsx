@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { MessageCircle, CalendarDays, Stethoscope, HeartHandshake } from 'lucide-react'
+import { nutri } from '@/lib/nutricionista'
 
 const stats = [
   {
@@ -15,8 +16,8 @@ const stats = [
     Icon: CalendarDays,
   },
   {
-    value: 'CRN-3',
-    label: 'nutricionista clínica registrada, atendimento humano',
+    value: nutri.crnSigla,
+    label: `${nutri.especialidadeInline} ${nutri.registrado}, atendimento humano`,
     Icon: Stethoscope,
   },
   {

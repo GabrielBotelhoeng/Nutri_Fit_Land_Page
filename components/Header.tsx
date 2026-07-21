@@ -1,9 +1,11 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 import { waLink } from '@/lib/whatsapp'
+import { nutri } from '@/lib/nutricionista'
 
 const navLinks = [
   { href: '#como-funciona', label: 'Como eu trabalho' },
@@ -23,12 +25,28 @@ function WhatsAppIcon() {
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [mounted, setMounted] = useState(false)
+
+  /* Portal precisa esperar o mount do client — evita SSR mismatch */
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  /* Menu aberto: marca <body> pra CSS esconder o canvas 3D (que ignora z-index no mobile)
+     e trava o scroll da página enquanto o drawer está visível. */
+  useEffect(() => {
+    if (typeof document === 'undefined') return
+    document.body.classList.toggle('menu-open', menuOpen)
+    return () => {
+      document.body.classList.remove('menu-open')
+    }
+  }, [menuOpen])
 
   return (
     <header
@@ -53,17 +71,17 @@ export default function Header() {
             fontSize: 18, fontWeight: 400,
             flexShrink: 0,
           }}>
-            C
+            {nutri.iniciais}
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
             <span style={{
               fontFamily: 'var(--font-display), Georgia, serif',
               fontSize: 19, color: '#2D5016', letterSpacing: '-0.01em',
             }}>
-              Camila Rocha
+              {nutri.nomeCompleto}
             </span>
             <span style={{ fontSize: 11, color: '#6B5340', marginTop: 2, letterSpacing: '0.04em' }}>
-              Nutricionista · CRN-3 12.345
+              Nutricionista · {nutri.crn}
             </span>
           </div>
         </a>
@@ -107,46 +125,66 @@ export default function Header() {
         </button>
       </div>
 
-      {/* Drawer mobile */}
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.div
-            initial={{ x: '100%' }}
-            animate={{ x: 0 }}
-            exit={{ x: '100%' }}
-            transition={{ duration: 0.25 }}
-            className="fixed inset-0 top-16 bg-offwhite z-40 flex flex-col gap-6 p-8 md:hidden"
-          >
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="text-terra text-lg hover:text-floresta transition-colors"
-                onClick={() => setMenuOpen(false)}
+      {/* Drawer mobile — via createPortal pra escapar do sticky header
+         (backdrop-filter + sticky criam um stacking/containing block que
+         confunde position:fixed do drawer, cortando conteúdo e "prendendo"
+         quando a página rolou). Renderizando em <body>, fixed cobre 100%
+         do viewport sempre. */}
+      {mounted &&
+        createPortal(
+          <AnimatePresence>
+            {menuOpen && (
+              <motion.div
+                initial={{ x: '100%' }}
+                animate={{ x: 0 }}
+                exit={{ x: '100%' }}
+                transition={{ duration: 0.25 }}
+                className="md:hidden flex flex-col gap-6"
+                style={{
+                  position: 'fixed',
+                  top: '4rem',
+                  right: 0,
+                  bottom: 0,
+                  left: 0,
+                  zIndex: 60,
+                  background: '#F0F7EC',
+                  padding: '2rem',
+                  overflowY: 'auto',
+                }}
               >
-                {link.label}
-              </a>
-            ))}
-            <a
-              href={waLink()}
-              className="bg-floresta text-offwhite rounded-lg font-semibold text-center"
-              style={{
-                minHeight: '44px',
-                padding: '12px 24px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: 8,
-                fontSize: 15,
-                textDecoration: 'none',
-              }}
-            >
-              <WhatsAppIcon />
-              Falar comigo
-            </a>
-          </motion.div>
+                {navLinks.map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    className="drawer-link"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    {link.label}
+                  </a>
+                ))}
+                <a
+                  href={waLink()}
+                  className="bg-floresta text-offwhite rounded-lg font-semibold text-center"
+                  style={{
+                    minHeight: '44px',
+                    padding: '12px 24px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 8,
+                    fontSize: 15,
+                    textDecoration: 'none',
+                    marginTop: '0.5rem',
+                  }}
+                >
+                  <WhatsAppIcon />
+                  Falar comigo
+                </a>
+              </motion.div>
+            )}
+          </AnimatePresence>,
+          document.body,
         )}
-      </AnimatePresence>
     </header>
   )
 }

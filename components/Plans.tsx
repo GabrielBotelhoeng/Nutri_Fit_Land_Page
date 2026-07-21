@@ -78,7 +78,7 @@ export default function Plans() {
       <div className="relative z-[2] max-w-[1200px] mx-auto px-4 md:px-6 lg:px-8">
         <div className="text-center mb-20 md:mb-28">
           <p className="eyebrow mb-7">Investimento</p>
-          <h2 className="h-2 mb-8 md:mb-10 text-balance">
+          <h2 className="hd-2 mb-8 md:mb-10 text-balance">
             Quanto mais tempo a gente caminha junto, mais barato fica
           </h2>
           <p className="lead max-w-xl mx-auto text-pretty">
@@ -87,7 +87,7 @@ export default function Plans() {
         </div>
 
         {/* Grid 4 colunas, items-stretch para altura igual */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-5 items-stretch">
           {plans.map((plan, i) => (
             <motion.div
               key={plan.label}

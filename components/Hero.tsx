@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic'
 import { motion, useReducedMotion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import { waLink } from '@/lib/whatsapp'
+import { nutri } from '@/lib/nutricionista'
 
 const PhoneCanvas = dynamic(() => import('./PhoneCanvas'), {
   ssr: false,
@@ -94,7 +95,7 @@ function FloatingNotification() {
       </div>
       <div>
         <div style={{ fontSize: 11, color: '#25D366', fontWeight: 700, marginBottom: 3 }}>
-          Camila • agora
+          {nutri.primeiroNome} • agora
         </div>
         <div style={{ fontSize: 13, color: '#2D5016', lineHeight: 1.4, fontWeight: 500 }}>
           🔔 Hora do almoço, registra aí?
@@ -163,19 +164,19 @@ function NutricionistaAssinatura() {
           flexShrink: 0,
         }}
       >
-        C
+        {nutri.iniciais}
       </div>
       <div>
         <p style={{
           fontFamily: 'var(--font-display), Georgia, serif',
           fontSize: 17, color: '#2D5016', margin: 0, lineHeight: 1.2,
         }}>
-          Camila Rocha
+          {nutri.nomeCompleto}
         </p>
         <p style={{
           fontSize: 13, color: '#6B5340', margin: 0, marginTop: 2,
         }}>
-          Nutricionista clínica · CRN-3 12.345
+          {nutri.especialidade} · {nutri.crn}
         </p>
       </div>
     </motion.div>
@@ -220,7 +221,7 @@ export default function Hero() {
 
           <motion.h1
             variants={heroItem}
-            className="h-display mb-7 md:mb-8 text-balance"
+            className="hd-display mb-7 md:mb-8 text-balance"
           >
             Sua dieta vira rotina quando alguém anda junto.
           </motion.h1>
@@ -230,7 +231,7 @@ export default function Hero() {
             className="lead mb-9 text-pretty mx-auto md:mx-0"
             style={{ maxWidth: 480 }}
           >
-            Sou a Camila, nutricionista. Acompanho cada paciente pelo WhatsApp todos
+            Sou {nutri.artigo} {nutri.primeiroNome}, {nutri.especialidadeInline}. Acompanho cada paciente pelo WhatsApp todos
             os dias — sem app pra baixar, sem login, sem planilha. Você manda foto
             do prato, eu vejo. Você esquece de comer, eu lembro.
           </motion.p>

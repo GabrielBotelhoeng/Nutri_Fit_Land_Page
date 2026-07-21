@@ -54,7 +54,7 @@ export default function Features() {
       <div className="relative z-[2] max-w-[1152px] mx-auto px-4 md:px-6 lg:px-8">
         <div className="text-center mb-20 md:mb-28">
           <p className="eyebrow mb-7">O acompanhamento</p>
-          <h2 className="h-2 mb-8 md:mb-10 text-balance">
+          <h2 className="hd-2 mb-8 md:mb-10 text-balance">
             O que faltava pra você não largar a dieta de novo
           </h2>
           <p className="lead max-w-xl mx-auto text-pretty">

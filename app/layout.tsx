@@ -1,5 +1,6 @@
 import { Inter, Instrument_Serif } from 'next/font/google'
 import './globals.css'
+import { nutri } from '@/lib/nutricionista'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -16,8 +17,8 @@ const instrumentSerif = Instrument_Serif({
 })
 
 export const metadata = {
-  title: 'NutriChat — Seu assistente nutricional no WhatsApp',
-  description: 'Acompanhamento nutricional inteligente via WhatsApp. Registro de refeições, alertas e relatórios automáticos.',
+  title: `${nutri.marca} — Acompanhamento nutricional pelo WhatsApp`,
+  description: `${nutri.especialidade} (${nutri.crn}). Acompanhamento diário pelo WhatsApp — registro de refeições, alertas e relatórios semanais.`,
 }
 
 export default function RootLayout({

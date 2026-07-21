@@ -2,17 +2,18 @@
 
 import { motion } from 'framer-motion'
 import { Star } from 'lucide-react'
+import { nutri, pronomeCapitalizado } from '@/lib/nutricionista'
 
 const testimonials = [
   {
     name: 'Ana Paula M.',
     role: 'Paciente há 3 meses',
-    text: 'Nas primeiras duas semanas já tinha perdido 3kg — e sem passar fome. Antes eu saía da consulta animada e na semana já tinha perdido o fio. Com a Camila acompanhando todo dia, isso não acontece mais.',
+    text: `Nas primeiras duas semanas já tinha perdido 3kg — e sem passar fome. Antes eu saía da consulta animada e na semana já tinha perdido o fio. Com ${nutri.artigo} ${nutri.primeiroNome} acompanhando todo dia, isso não acontece mais.`,
   },
   {
     name: 'Carlos Eduardo S.',
     role: 'Paciente há 2 meses',
-    text: 'Achei que ia ser mais um app pra eu abandonar. Mas é a Camila no meu WhatsApp. Mando foto do prato, ela responde. Ela sabe o que eu comi antes mesmo de a gente conversar de novo.',
+    text: `Achei que ia ser mais um app pra eu abandonar. Mas é ${nutri.artigo} ${nutri.primeiroNome} no meu WhatsApp. Mando foto do prato, ${nutri.pronome} responde. ${pronomeCapitalizado} sabe o que eu comi antes mesmo de a gente conversar de novo.`,
   },
   {
     name: 'Mariana Souza',
@@ -39,7 +40,7 @@ export default function Testimonials() {
       <div className="relative z-[2] max-w-[1152px] mx-auto px-4 md:px-6 lg:px-8">
         <div className="text-center mb-20 md:mb-28">
           <p className="eyebrow mb-7">Pacientes</p>
-          <h2 className="h-2 mb-8 md:mb-10 text-balance">
+          <h2 className="hd-2 mb-8 md:mb-10 text-balance">
             Pacientes minhas, palavras delas
           </h2>
           <p className="lead max-w-xl mx-auto text-pretty">

@@ -33,7 +33,7 @@ export default function WhatItDoes() {
       <div className="relative z-[2] max-w-[1152px] mx-auto px-4 md:px-6 lg:px-8">
         <div className="text-center mb-20 md:mb-28">
           <p className="eyebrow mb-7">O que eu acompanho</p>
-          <h2 className="h-2 mb-8 md:mb-10 text-balance">
+          <h2 className="hd-2 mb-8 md:mb-10 text-balance">
             Tudo isso entre nós dois, pelo WhatsApp
           </h2>
           <p className="lead max-w-lg mx-auto text-pretty">
@@ -41,7 +41,7 @@ export default function WhatItDoes() {
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 md:gap-4">
           {cards.map(({ Icon, title, desc }, i) => (
             <motion.div
               key={title}

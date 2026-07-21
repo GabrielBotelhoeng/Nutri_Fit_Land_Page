@@ -58,7 +58,7 @@ export default function TimelineSection() {
       <div className="max-w-[680px] mx-auto px-4 md:px-6">
         <div className="text-center mb-20 md:mb-28">
           <p className="eyebrow mb-7">Um dia comigo</p>
-          <h2 className="h-2 mb-8 md:mb-10 text-balance">
+          <h2 className="hd-2 mb-8 md:mb-10 text-balance">
             É essa a nossa conversa, todo dia
           </h2>
           <p className="lead text-pretty">
@@ -82,7 +82,7 @@ export default function TimelineSection() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, amount: 0.4 }}
                 transition={{ duration: 0.38, delay: i * 0.07 }}
-                className="flex gap-4 items-start"
+                className="flex gap-2 sm:gap-4 items-start"
               >
                 {/* Hora */}
                 <div className="w-14 flex-shrink-0 text-right">
@@ -99,7 +99,7 @@ export default function TimelineSection() {
 
                 {/* Bolha */}
                 <div
-                  className={`rounded-2xl px-4 py-2.5 text-sm max-w-[260px] sm:max-w-[340px] whitespace-pre-line leading-relaxed ${
+                  className={`rounded-2xl px-4 py-2.5 text-sm max-w-[calc(100vw-120px)] sm:max-w-[340px] whitespace-pre-line leading-relaxed ${
                     ev.type === 'user'
                       ? 'ml-auto rounded-tr-none'
                       : 'rounded-tl-none'

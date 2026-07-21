@@ -5,6 +5,7 @@ import { RoundedBox } from '@react-three/drei'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Suspense, useEffect, useRef, useState } from 'react'
 import type { Group } from 'three'
+import { nutri } from '@/lib/nutricionista'
 
 const EASE_OUT: [number, number, number, number] = [0.23, 1, 0.32, 1]
 
@@ -232,7 +233,7 @@ export default function PhoneCanvas() {
           </div>
           <div>
             <div style={{ color: '#fff', fontSize: 11, fontWeight: 700, lineHeight: 1.2 }}>
-              Nutri Camila
+              Nutri {nutri.primeiroNome}
             </div>
             <div style={{ color: 'rgba(255,255,255,0.65)', fontSize: 8.5 }}>online agora</div>
           </div>
@@ -242,11 +243,11 @@ export default function PhoneCanvas() {
           style={{
             background: '#ECE5DD',
             height: 'calc(100% - 56px)',
-            padding: '8px 7px',
+            padding: '8px 7px 10px',
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'flex-start',
-            gap: 6,
+            justifyContent: 'flex-end',
+            gap: 4,
             overflow: 'hidden',
           }}
         >
@@ -270,8 +271,8 @@ export default function PhoneCanvas() {
                           color: '#111',
                           borderRadius: '10px 2px 10px 10px',
                           maxWidth: '88%',
-                          padding: '7px 10px',
-                          fontSize: 13,
+                          padding: '6px 9px',
+                          fontSize: 12,
                           lineHeight: 1.35,
                         }
                       : {
@@ -279,8 +280,8 @@ export default function PhoneCanvas() {
                           color: '#111',
                           borderRadius: '2px 10px 10px 10px',
                           maxWidth: '88%',
-                          padding: '7px 10px',
-                          fontSize: 13,
+                          padding: '6px 9px',
+                          fontSize: 12,
                           lineHeight: 1.35,
                           boxShadow: '0 1px 2px rgba(0,0,0,0.1)',
                         }
@@ -290,14 +291,14 @@ export default function PhoneCanvas() {
                     <div
                       style={{
                         width: '100%',
-                        height: 50,
+                        height: 40,
                         background: '#b8d4a8',
                         borderRadius: 6,
-                        marginBottom: 5,
+                        marginBottom: 4,
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        fontSize: 11,
+                        fontSize: 10,
                         color: '#2D5016',
                         fontWeight: 700,
                       }}

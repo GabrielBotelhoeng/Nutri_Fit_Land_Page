@@ -1,4 +1,5 @@
 import { waLink } from '@/lib/whatsapp'
+import { nutri } from '@/lib/nutricionista'
 
 const nav = [
   { href: '#como-funciona', label: 'Como eu trabalho' },
@@ -14,8 +15,8 @@ export default function Footer() {
         <div className="grid md:grid-cols-3 gap-10 mb-12">
           {/* Brand */}
           <div>
-            <p className="text-xl font-bold mb-1">Camila Rocha Nutrição</p>
-            <p className="text-menta/80 text-xs uppercase tracking-widest font-semibold mb-3">CRN-3 12.345</p>
+            <p className="text-xl font-bold mb-1">{nutri.marca}</p>
+            <p className="text-menta/80 text-xs uppercase tracking-widest font-semibold mb-3">{nutri.crn}</p>
             <p className="text-menta text-sm leading-relaxed max-w-xs">
               Atendimento nutricional clínico no WhatsApp — todo dia, sem app pra baixar.
             </p>
@@ -59,7 +60,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-floresta/40 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-offwhite/50 text-xs">
-          <p>© {new Date().getFullYear()} Camila Rocha Nutrição · CRN-3 12.345. Todos os direitos reservados.</p>
+          <p>© {new Date().getFullYear()} {nutri.marca} · {nutri.crn}. Todos os direitos reservados.</p>
           <p>Pra quem quer seguir até o fim — comigo do lado.</p>
         </div>
       </div>

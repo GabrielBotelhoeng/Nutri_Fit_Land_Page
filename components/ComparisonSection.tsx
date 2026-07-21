@@ -25,7 +25,7 @@ export default function ComparisonSection() {
       <div className="max-w-[1000px] mx-auto px-4 md:px-6 lg:px-8">
         <div className="text-center mb-20 md:mb-28">
           <p className="eyebrow mb-7">Antes e depois</p>
-          <h2 className="h-2 mb-8 md:mb-10 text-balance">
+          <h2 className="hd-2 mb-8 md:mb-10 text-balance">
             O que muda quando você não está mais sozinho
           </h2>
           <p className="lead text-pretty">
@@ -40,7 +40,7 @@ export default function ComparisonSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.45 }}
-            className="p-8 flex flex-col gap-4"
+            className="p-6 md:p-8 flex flex-col gap-4"
             style={{ background: '#FDF0EE' }}
           >
             <p className="font-bold text-lg mb-2" style={{ color: '#9B2020' }}>
@@ -62,7 +62,7 @@ export default function ComparisonSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.45, delay: 0.1 }}
-            className="p-8 flex flex-col gap-4"
+            className="p-6 md:p-8 flex flex-col gap-4"
             style={{ background: '#C8E6C0' }}
           >
             <p className="font-bold text-lg mb-2 text-floresta">
