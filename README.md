@@ -4,7 +4,7 @@ Landing white-label do NutriChat, o assistente nutricional via WhatsApp.
 Apresenta o produto, o(a) nutricionista e os planos, e leva o visitante
 para uma conversa direta no WhatsApp.
 
-**Live:** <https://nutrichat-landing.vercel.app>
+**Live:** <https://nutrichat-landing-six.vercel.app>
 
 ## Stack
 
@@ -68,7 +68,7 @@ O repositório está conectado à Vercel: push em `main` dispara build e
 deploy automático.
 
 - Env vars são configuradas em **Vercel → Project → Settings → Environment Variables**
-- Domínio: alias curto `nutrichat-landing.vercel.app`
+- Domínio: alias curto `nutrichat-landing-six.vercel.app`
 - Deployment Protection: **desligada** (landing é pública)
 
 Para deploy manual (raro):
