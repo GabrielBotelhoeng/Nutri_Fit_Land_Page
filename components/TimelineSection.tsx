@@ -57,12 +57,12 @@ export default function TimelineSection() {
     <section className="py-20 bg-creme">
       <div className="max-w-[680px] mx-auto px-4 md:px-6">
         <div className="text-center mb-20 md:mb-28">
-          <p className="eyebrow mb-7">Um dia comigo</p>
+          <p className="eyebrow mb-7">Um dia com o NutriChat</p>
           <h2 className="hd-2 mb-8 md:mb-10 text-balance">
             É essa a nossa conversa, todo dia
           </h2>
           <p className="lead text-pretty">
-            Não tem formulário, não tem app. Tem eu, você e o WhatsApp.
+            Não tem formulário, não tem app. Tem você e o WhatsApp.
           </p>
         </div>
 

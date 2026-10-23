@@ -7,32 +7,32 @@ const features = [
   {
     icon: Camera,
     title: 'Registra a refeição em segundos',
-    desc: 'Foto do prato, áudio ou texto — eu identifico o que você comeu, calculo os macros e guardo o registro. Sem planilha, sem app novo.',
+    desc: 'Foto do prato, áudio ou texto: o NutriChat identifica o que você comeu, calcula os macros e guarda o registro. Sem planilha, sem app novo.',
   },
   {
     icon: Mic,
     title: 'Prefere falar? Manda áudio',
-    desc: 'Sem tempo de digitar? Manda áudio de 10 segundos e eu cuido do resto — transcrevo, interpreto e registro pra você.',
+    desc: 'Sem tempo de digitar? Um áudio de 10 segundos basta: ele transcreve, interpreta e registra pra você.',
   },
   {
     icon: Bell,
     title: 'Lembretes pra você não soltar',
-    desc: 'Alerto nos horários das suas refeições. Você não esquece, não pula etapa, e a dieta vira parte do dia.',
+    desc: 'Alerta nos horários das suas refeições. Você não esquece, não pula etapa, e a dieta vira parte do dia.',
   },
   {
     icon: BarChart2,
     title: 'Resumo semanal todo domingo',
-    desc: 'Te mando um relatório do que foi bem, do que dá pra ajustar e do quanto você está perto da meta. Sem você precisar pedir.',
+    desc: 'Um relatório do que foi bem, do que dá pra ajustar e do quanto você está perto da meta. Sem você precisar pedir.',
   },
   {
     icon: ScanBarcode,
     title: 'Mercado sem dúvida',
-    desc: 'Foto do código de barras e eu te respondo na hora se aquilo cabe ou não no seu plano — antes do carrinho.',
+    desc: 'Foto do código de barras e você sabe na hora se aquilo cabe no seu plano, antes de ir pro carrinho.',
   },
   {
     icon: Shuffle,
     title: 'Substituição já aprovada',
-    desc: 'Acabou um alimento ou está fora de casa? Te indico um equivalente — sempre dentro do que combinamos no plano.',
+    desc: 'Acabou um alimento ou está fora de casa? Ele indica um equivalente, sempre dentro do plano.',
   },
 ]
 
@@ -58,7 +58,7 @@ export default function Features() {
             O que faltava pra você não largar a dieta de novo
           </h2>
           <p className="lead max-w-xl mx-auto text-pretty">
-            Eu na sua rotina, todo dia — só o WhatsApp que você já abre.
+            Acompanhamento na sua rotina, todo dia, no WhatsApp que você já abre.
           </p>
         </div>
 

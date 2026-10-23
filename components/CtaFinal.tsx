@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import { waLink } from '@/lib/whatsapp'
@@ -7,38 +8,28 @@ import { waLink } from '@/lib/whatsapp'
 export default function CtaFinal() {
   return (
     <section
-      className="section-dark-pattern relative overflow-hidden py-24 md:py-28"
-      style={{ background: 'linear-gradient(135deg, #1F3A0F 0%, #2D5016 50%, #1F3A0F 100%)' }}
+      className="section-dark-pattern relative overflow-hidden py-24 md:py-36"
+      style={{ background: '#1F3A0F' }}
     >
-      {/* Aurora interna */}
-      <div
-        aria-hidden
-        className="aurora-blob aurora-a"
-        style={{
-          width: 560,
-          height: 560,
-          background:
-            'radial-gradient(circle, rgba(125,184,90,0.45), rgba(125,184,90,0))',
-          top: '-20%',
-          left: '-10%',
-          opacity: 0.55,
-        }}
+      {/* Foto gerada no Higgsfield: mãos fotografando o prato. A parede verde
+          à esquerda vira o fundo do texto; o degradê garante contraste no mobile. */}
+      <Image
+        src="/img/maos-celular.webp"
+        alt=""
+        fill
+        sizes="100vw"
+        className="object-cover object-[70%_center] -z-[2]"
       />
       <div
         aria-hidden
-        className="aurora-blob aurora-b"
+        className="absolute inset-0 -z-[1]"
         style={{
-          width: 420,
-          height: 420,
           background:
-            'radial-gradient(circle, rgba(200,230,192,0.30), rgba(200,230,192,0))',
-          bottom: '-15%',
-          right: '-8%',
-          opacity: 0.5,
+            'linear-gradient(90deg, rgba(20,38,10,0.94) 0%, rgba(20,38,10,0.82) 45%, rgba(20,38,10,0.25) 80%, rgba(20,38,10,0.1) 100%)',
         }}
       />
 
-      <div className="relative z-[2] max-w-[820px] mx-auto px-4 md:px-6 text-center">
+      <div className="relative z-[2] max-w-[1152px] mx-auto px-4 md:px-6 lg:px-8"><div className="max-w-[560px] text-center md:text-left">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -59,10 +50,10 @@ export default function CtaFinal() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.45, delay: 0.1 }}
-          className="text-lg md:text-xl mb-10 max-w-lg mx-auto text-pretty leading-relaxed"
+          className="text-lg md:text-xl mb-10 max-w-lg mx-auto md:mx-0 text-pretty leading-relaxed"
           style={{ color: 'rgba(200,230,192,0.92)' }}
         >
-          Toda paciente que chega aqui já tentou sozinha antes. Da próxima vez você não precisa estar.
+          Quase todo mundo que chega aqui já tentou sozinho antes. Desta vez, você não precisa estar.
         </motion.p>
 
         <motion.div
@@ -70,14 +61,14 @@ export default function CtaFinal() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4, delay: 0.2 }}
-          className="flex flex-col sm:flex-row gap-3 justify-center"
+          className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start"
         >
           <a
             href={waLink()}
             className="btn-cta inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-bold text-base"
             style={{ minHeight: '56px', color: '#F0F7EC' }}
           >
-            Quero começar com você
+            Começar pelo WhatsApp
             <ArrowRight size={20} className="btn-arrow" strokeWidth={2.4} />
           </a>
           <a
@@ -106,6 +97,7 @@ export default function CtaFinal() {
         >
           Sem fidelidade nos primeiros 30 dias. Você sai quando quiser.
         </motion.p>
+      </div>
       </div>
     </section>
   )

@@ -3,15 +3,15 @@
 import { useState, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Menu, X } from 'lucide-react'
+import { Leaf, Menu, X } from 'lucide-react'
 import { waLink } from '@/lib/whatsapp'
-import { nutri } from '@/lib/nutricionista'
+import { marca, nutri } from '@/lib/nutricionista'
 
 const navLinks = [
-  { href: '#como-funciona', label: 'Como eu trabalho' },
-  { href: '#funcionalidades', label: 'O acompanhamento' },
-  { href: '#depoimentos', label: 'Pacientes' },
-  { href: '#planos', label: 'Investimento' },
+  { href: '#como-funciona', label: 'Como funciona' },
+  { href: '#situacoes', label: 'Pra quem é' },
+  { href: '#funcionalidades', label: 'Recursos' },
+  { href: '#planos', label: 'Planos' },
 ]
 
 function WhatsAppIcon() {
@@ -60,7 +60,7 @@ export default function Header() {
     >
       <div className="max-w-[1152px] mx-auto px-4 md:px-6 lg:px-8 h-16 flex items-center justify-between">
 
-        {/* Logo — assinatura da nutricionista */}
+        {/* Logo — marca NutriChat (ou o nutri real, se configurado) */}
         <a href="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
           <div style={{
             width: 38, height: 38, borderRadius: '50%',
@@ -71,17 +71,17 @@ export default function Header() {
             fontSize: 18, fontWeight: 400,
             flexShrink: 0,
           }}>
-            {nutri.iniciais}
+            {nutri ? nutri.iniciais : <Leaf size={18} strokeWidth={2.4} />}
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
             <span style={{
               fontFamily: 'var(--font-display), Georgia, serif',
               fontSize: 19, color: '#2D5016', letterSpacing: '-0.01em',
             }}>
-              {nutri.nomeCompleto}
+              {nutri ? nutri.nomeCompleto : marca}
             </span>
             <span style={{ fontSize: 11, color: '#6B5340', marginTop: 2, letterSpacing: '0.04em' }}>
-              Nutricionista · {nutri.crn}
+              {nutri ? `${nutri.especialidade} · ${nutri.crn}` : 'Nutrição no WhatsApp'}
             </span>
           </div>
         </a>
@@ -111,7 +111,7 @@ export default function Header() {
             }}
           >
             <WhatsAppIcon />
-            Falar comigo
+            Começar agora
           </a>
         </nav>
 
@@ -178,7 +178,7 @@ export default function Header() {
                   }}
                 >
                   <WhatsAppIcon />
-                  Falar comigo
+                  Começar agora
                 </a>
               </motion.div>
             )}

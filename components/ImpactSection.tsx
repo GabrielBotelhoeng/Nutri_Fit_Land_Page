@@ -47,7 +47,7 @@ export default function ImpactSection() {
           className="text-xs font-semibold uppercase tracking-widest mb-4"
           style={{ color: '#7DB85A' }}
         >
-          Meu método
+          O que faltava
         </motion.p>
 
         <motion.h2
@@ -73,7 +73,7 @@ export default function ImpactSection() {
           className="text-lg md:text-xl mb-10 max-w-xl mx-auto text-pretty leading-relaxed"
           style={{ color: 'rgba(200,230,192,0.92)' }}
         >
-          Sem app pra baixar. Sem login. Só você, eu e o WhatsApp que você já usa todo dia.
+          Sem app pra baixar. Sem login. Só o WhatsApp que você já abre o dia inteiro.
         </motion.p>
 
         <motion.div
@@ -88,7 +88,7 @@ export default function ImpactSection() {
             className="btn-cta inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl font-semibold text-sm"
             style={{ minHeight: '52px', color: '#F0F7EC' }}
           >
-            Quero conhecer o método
+            Quero começar
             <ArrowRight size={18} className="btn-arrow" strokeWidth={2.4} />
           </a>
           <a

@@ -11,21 +11,21 @@ const plans = [
     priceMonth: 330,
     billed: null,
     period: '1 mês',
-    desc: 'Pra quem quer me conhecer antes de fechar um acompanhamento mais longo.',
+    desc: 'Pra conhecer o acompanhamento antes de fechar um período mais longo.',
     savings: null,
     highlight: false,
     badge: null,
   },
   {
     label: 'Trimestral',
-    sublabel: 'O que eu recomendo',
+    sublabel: 'O mais escolhido',
     priceMonth: 222,
     billed: 666,
     period: '3 meses',
-    desc: 'Três meses é o tempo mínimo que eu peço pra a gente ver mudança real no corpo e na rotina.',
+    desc: 'Três meses é um bom tempo pra ver mudança real no corpo e na rotina.',
     savings: '33% mais em conta',
     highlight: true,
-    badge: 'Plano que recomendo',
+    badge: 'Recomendado',
   },
   {
     label: 'Semestral',
@@ -33,7 +33,7 @@ const plans = [
     priceMonth: 130,
     billed: 780,
     period: '6 meses',
-    desc: 'Seis meses é onde a maioria das minhas pacientes chega na meta — sem voltar atrás.',
+    desc: 'Seis meses pra consolidar o hábito e chegar na meta sem voltar atrás.',
     savings: '61% mais em conta',
     highlight: false,
     badge: null,
@@ -52,12 +52,12 @@ const plans = [
 ]
 
 const included = [
-  'Atendimento comigo pelo WhatsApp, todo dia',
+  'Acompanhamento pelo WhatsApp, todo dia',
   'Plano alimentar personalizado em PDF',
   'Registro por foto, áudio, texto e código de barras',
   'Lembretes nos horários das suas refeições',
   'Resumo semanal todo domingo',
-  'Substituições aprovadas por mim',
+  'Substituições aprovadas pelo seu nutricionista',
 ]
 
 export default function Plans() {
@@ -79,7 +79,7 @@ export default function Plans() {
         <div className="text-center mb-20 md:mb-28">
           <p className="eyebrow mb-7">Investimento</p>
           <h2 className="hd-2 mb-8 md:mb-10 text-balance">
-            Quanto mais tempo a gente caminha junto, mais barato fica
+            Quanto mais tempo de acompanhamento, mais em conta fica
           </h2>
           <p className="lead max-w-xl mx-auto text-pretty">
             Todo plano tem o acompanhamento inteiro. A diferença é só por quanto tempo.
@@ -188,7 +188,7 @@ export default function Plans() {
               <a
                 href={waLink(plan.label)}
                 className="btn-primary block text-center py-3 rounded-xl font-semibold text-sm"
-                aria-label={`Falar comigo sobre o plano ${plan.label}`}
+                aria-label={`Começar o plano ${plan.label}`}
                 style={
                   plan.highlight
                     ? {
@@ -209,7 +209,7 @@ export default function Plans() {
                       }
                 }
               >
-                Falar comigo sobre o {plan.label}
+                Quero o {plan.label}
               </a>
             </motion.div>
           ))}
