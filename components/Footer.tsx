@@ -1,4 +1,4 @@
-import { waLink } from '@/lib/whatsapp'
+import { waLink, whatsappAtivo } from '@/lib/whatsapp'
 import { marca, nutri } from '@/lib/nutricionista'
 
 const nav = [
@@ -51,14 +51,16 @@ export default function Footer() {
               Fale com a gente
             </p>
             <p className="text-offwhite/80 text-sm mb-4">
-              Chama no WhatsApp pra tirar uma dúvida ou começar seu acompanhamento.
+              {whatsappAtivo
+                ? 'Chama no WhatsApp pra tirar uma dúvida ou começar seu acompanhamento.'
+                : 'Estamos em pré-lançamento. Entre na lista e avisamos quando abrir as vagas.'}
             </p>
             <a
               href={waLink()}
               className="inline-flex items-center justify-center bg-menta text-floresta px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-claro transition-colors"
               style={{ minHeight: '44px' }}
             >
-              Abrir WhatsApp
+              {whatsappAtivo ? 'Abrir WhatsApp' : 'Entrar na lista'}
             </a>
           </div>
         </div>

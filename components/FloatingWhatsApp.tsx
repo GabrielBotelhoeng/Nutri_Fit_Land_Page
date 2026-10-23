@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { waLink } from '@/lib/whatsapp'
+import { waLink, whatsappAtivo } from '@/lib/whatsapp'
 
 /* Botão flutuante de WhatsApp (padrão das LPs de conversão). Só aparece
    depois que o Hero sai da tela — lá em cima o CTA principal já está visível. */
@@ -15,6 +15,10 @@ export default function FloatingWhatsApp() {
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  // Sem número configurado não há WhatsApp pra abrir — a lista de espera
+  // já está nos CTAs da página.
+  if (!whatsappAtivo) return null
 
   return (
     <AnimatePresence>

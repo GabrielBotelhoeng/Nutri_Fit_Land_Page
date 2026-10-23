@@ -38,7 +38,8 @@ Todas são `NEXT_PUBLIC_*`: o Next.js embute no bundle no build, então
 
 | Var | Uso |
 |---|---|
-| `NEXT_PUBLIC_WHATSAPP_NUMBER` | Número que recebe os CTAs (DDI+DDD+número). Alimenta os links `wa.me`. |
+| `NEXT_PUBLIC_WHATSAPP_NUMBER` | Número que recebe os CTAs (DDI+DDD+número). Sem ele, a página fica em modo lista de espera. |
+| `DATABASE_URL` | Neon Postgres da lista de espera (injetada pela integração da Vercel). |
 | `NEXT_PUBLIC_NUTRI_MARCA` | Marca no Header/Footer/título. Padrão: `NutriChat`. |
 | `NEXT_PUBLIC_NUTRI_NOME_COMPLETO` | *Opcional.* Nome do nutricionista parceiro **real**. |
 | `NEXT_PUBLIC_NUTRI_CRN` | *Opcional.* CRN real (sigla + número). |
@@ -47,6 +48,28 @@ Todas são `NEXT_PUBLIC_*`: o Next.js embute no bundle no build, então
 
 A landing fala na voz da marca. **Não há nutricionista de placeholder**: nome
 e CRN só aparecem quando nome **e** CRN estão preenchidos com dados reais.
+
+## Lista de espera (pré-lançamento)
+
+Enquanto `NEXT_PUBLIC_WHATSAPP_NUMBER` não tiver um número real, a página fica
+em **modo lista de espera**: todo CTA abre um formulário (nome, WhatsApp ou
+e-mail, plano de interesse e consentimento LGPD) que grava no Neon Postgres via
+`POST /api/lista-espera`. Ao configurar o número na Vercel e republicar, os CTAs
+voltam a abrir o WhatsApp sozinhos — sem mudar código.
+
+```bash
+# ver quem entrou na lista (lê o DATABASE_URL do .env.local)
+node --env-file=.env.local scripts/lista-espera-ver.mjs
+
+# criar a tabela num banco novo (idempotente)
+node --env-file=.env.local scripts/lista-espera-setup.mjs
+
+# credenciais locais atualizadas da Vercel
+npx vercel env pull .env.local --yes
+```
+
+O banco foi provisionado pelo Marketplace da Vercel (Neon), que injeta
+`DATABASE_URL`/`DATABASE_URL_UNPOOLED` em Production, Preview e Development.
 
 ## Build de produção
 

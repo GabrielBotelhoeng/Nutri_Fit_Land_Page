@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { animate, AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { ArrowRight, Check } from 'lucide-react'
-import { waLink } from '@/lib/whatsapp'
+import { waLink, whatsappAtivo } from '@/lib/whatsapp'
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1]
 
@@ -244,7 +244,9 @@ export default function Plans() {
               <ArrowRight size={18} className="btn-arrow" strokeWidth={2.4} />
             </a>
             <p className="mt-3 text-center text-xs text-claro-br">
-              Você fala com a gente no WhatsApp antes de pagar qualquer coisa.
+              {whatsappAtivo
+                ? 'Você fala com a gente no WhatsApp antes de pagar qualquer coisa.'
+                : 'Pré-lançamento: entre na lista e avisamos quando abrir as vagas. Nada é cobrado agora.'}
             </p>
           </div>
         </div>
