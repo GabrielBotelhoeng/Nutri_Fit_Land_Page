@@ -5,7 +5,6 @@ import StatsSection from '@/components/StatsSection'
 import ImpactSection from '@/components/ImpactSection'
 import Situacoes from '@/components/Situacoes'
 import HowItWorks from '@/components/HowItWorks'
-import WhatItDoes from '@/components/WhatItDoes'
 import ComparisonSection from '@/components/ComparisonSection'
 import TimelineSection from '@/components/TimelineSection'
 import Features from '@/components/Features'
@@ -24,7 +23,6 @@ export default function Home() {
       <ImpactSection />
       <Situacoes />
       <HowItWorks />
-      <WhatItDoes />
       <ComparisonSection />
       <TimelineSection />
       <Features />
