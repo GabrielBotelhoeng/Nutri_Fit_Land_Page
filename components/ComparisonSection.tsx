@@ -12,11 +12,11 @@ const withoutItems = [
 ]
 
 const withItems = [
-  'Eu te lembro dos horários, todo dia',
-  'A gente acompanha os macros do seu dia em tempo real',
-  'Mandou o código de barras, eu respondo na hora',
-  'Falo com você pelo WhatsApp, todo dia, inclusive fim de semana',
-  'Tem alguém ao seu lado pra você não soltar a mão',
+  'Lembrete nos horários certos, todo dia',
+  'Os macros do dia somados em tempo real',
+  'Mandou o código de barras, a resposta vem na hora',
+  'Acompanhamento no WhatsApp, inclusive no fim de semana',
+  'Resumo semanal pra ajustar o plano com seu nutricionista',
 ]
 
 export default function ComparisonSection() {
@@ -44,7 +44,7 @@ export default function ComparisonSection() {
             style={{ background: '#FDF0EE' }}
           >
             <p className="font-bold text-lg mb-2" style={{ color: '#9B2020' }}>
-              Antes de me acompanhar
+              Sem acompanhamento
             </p>
             <ul className="flex flex-col gap-3">
               {withoutItems.map((item) => (
@@ -66,7 +66,7 @@ export default function ComparisonSection() {
             style={{ background: '#C8E6C0' }}
           >
             <p className="font-bold text-lg mb-2 text-floresta">
-              Depois de me acompanhar
+              Com o NutriChat
             </p>
             <ul className="flex flex-col gap-3">
               {withItems.map((item) => (

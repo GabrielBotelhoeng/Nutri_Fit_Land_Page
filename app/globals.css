@@ -243,25 +243,15 @@ body > * { position: relative; z-index: 2; }
   }
 }
 
-/* Canvas com aspect-ratio — sempre tem altura, não depende de viewport */
+/* ─── Celular interativo (PhoneDemo) ─── */
 .hero-canvas-col {
   position: relative;
   width: 100%;
-  /* ASPECT_RATIO em vez de clamp/vw — sempre confiável */
-  aspect-ratio: 280 / 420;
-  max-width: 360px;
+  max-width: 420px;
   margin: 0 auto;
-}
-@media (min-width: 768px) {
-  .hero-canvas-col {
-    max-width: 100%;
-    aspect-ratio: 1 / 1.18;
-  }
-}
-.hero-canvas-stage {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
+  display: flex;
+  justify-content: center;
+  padding: 8px 0 34px;
 }
 .hero-spotlight {
   position: absolute;
@@ -269,43 +259,113 @@ body > * { position: relative; z-index: 2; }
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(circle at 50% 50%,
-      rgba(125,184,90,0.35) 0%,
+    radial-gradient(circle at 50% 45%,
+      rgba(125,184,90,0.38) 0%,
       rgba(200,230,192,0.18) 35%,
       transparent 65%);
 }
-/* Sombra HTML removida — sombra de contato vem do próprio Canvas 3D (acompanha tilt) */
-.hero-contact-shadow { display: none; }
-
-/* Overlay HTML da tela WhatsApp — alinhado DENTRO da tela 3D do phone (com folga pra borda)
-   Mobile  (cameraZ 3.45, aspect 280/420): tela 3D 22.8% → overlay com folga em 23.5%
-   Desktop (cameraZ 3.2,  aspect 1/1.18):  tela 3D 27.0% → overlay com folga em 28.5% */
-.phone-screen-overlay {
-  position: absolute;
-  top: 12%;
-  bottom: 12%;
-  left: 23.5%;
-  right: 23.5%;
-  border-radius: 14px;
+.phone-stage {
+  position: relative;
+  z-index: 1;
+  perspective: 1100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.phone-frame {
+  position: relative;
+  width: 284px;
+  height: 584px;
+  padding: 11px;
+  border-radius: 50px;
+  background: linear-gradient(145deg, #2a2d2a 0%, #0d0f0d 55%, #1f221f 100%);
+  box-shadow:
+    inset 0 0 0 1.5px rgba(255,255,255,0.10),
+    inset 0 0 0 4px #050605,
+    0 30px 60px -12px rgba(31,58,15,0.45),
+    0 18px 36px -18px rgba(0,0,0,0.5);
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+@media (max-width: 380px) {
+  .phone-frame { width: 262px; height: 540px; }
+}
+.phone-screen {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
+  border-radius: 40px;
+  background: #f6f3ee;
+  font-family: var(--font-sans), system-ui, sans-serif;
 }
-@media (min-width: 768px) {
-  .phone-screen-overlay {
-    top: 9%;
-    bottom: 9%;
-    left: 28.5%;
-    right: 28.5%;
-  }
+.phone-btn {
+  position: absolute;
+  width: 3px;
+  border-radius: 2px;
+  background: #1a1c1a;
+}
+.phone-btn--power { right: -3px; top: 150px; height: 74px; }
+.phone-btn--vol1  { left: -3px;  top: 128px; height: 46px; }
+.phone-btn--vol2  { left: -3px;  top: 186px; height: 46px; }
+
+.phone-scroll { scrollbar-width: none; }
+.phone-scroll::-webkit-scrollbar { display: none; }
+
+.phone-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 30px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid rgba(45,80,22,0.16);
+  color: #2D5016;
+  font-size: 10.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform .15s ease, background .2s ease, border-color .2s ease;
+}
+.phone-chip:not(:disabled):hover { border-color: #4A7C2F; background: #F3F8EF; }
+.phone-chip:not(:disabled):active { transform: scale(0.95); }
+.phone-chip:disabled { cursor: default; opacity: .55; }
+.phone-chip.is-done { background: #EAF4E3; opacity: 1; color: #4A7C2F; }
+.phone-chip:focus-visible,
+.phone-stage button:focus-visible { outline: 2px solid #4A7C2F; outline-offset: 2px; }
+
+.typing-dot { animation: typing 1s ease-in-out infinite; }
+@keyframes typing {
+  0%, 60%, 100% { transform: translateY(0); opacity: .45; }
+  30%           { transform: translateY(-3px); opacity: 1; }
 }
 
-/* Menu mobile aberto: trava scroll e esconde o canvas 3D do hero
-   (WebGL é promovido a camada de GPU e ignora z-index no mobile) */
-body.menu-open { overflow: hidden; }
-body.menu-open .hero-canvas-col,
-body.menu-open .hero-float-card {
-  visibility: hidden;
-  pointer-events: none;
+.phone-hint {
+  position: absolute;
+  bottom: -30px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #4A7C2F;
+  white-space: nowrap;
 }
+.phone-hint-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #7DB85A;
+  box-shadow: 0 0 0 0 rgba(125,184,90,.6);
+  animation: hint-pulse 1.8s ease-out infinite;
+}
+@keyframes hint-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(125,184,90,.6); }
+  100% { box-shadow: 0 0 0 10px rgba(125,184,90,0); }
+}
+
+/* Menu mobile aberto: trava o scroll da página */
+body.menu-open { overflow: hidden; }
 
 /* Floating cards — só desktop (não cabem bem em mobile sem poluir) */
 .hero-float-card {
@@ -321,12 +381,12 @@ body.menu-open .hero-float-card {
   z-index: 10;
   will-change: transform;
 }
-.hero-float-card--left-mid  { left: -12px; top: 42%; }
-.hero-float-card--right-top { right: -10px; top: 8%; }
-.hero-float-card--right-bot { right: -10px; bottom: 18%; }
+.hero-float-card--left-mid  { left: -28px; top: 46%; }
+.hero-float-card--right-top { right: -190px; top: 16%; }
+.hero-float-card--right-bot { right: -30px; bottom: 20%; }
 .hero-float-card--left-top  { left: 14px;  top: 9%; border-radius: 12px; }
 
-@media (max-width: 1023px) {
+@media (max-width: 1279px) {
   .hero-float-card { display: none; }
 }
 
@@ -473,39 +533,103 @@ body.menu-open .hero-float-card {
     0 0 80px rgba(125, 184, 90, 0.22);
 }
 
-/* ─── Depoimento card ─── */
-.testimonial-card {
-  position: relative;
-  background: #ffffff;
-  border-radius: 18px;
-  padding: 28px;
-  border: 1px solid rgba(200, 230, 192, 0.7);
+/* ─── Marquee de benefícios ─── */
+.marquee-band {
+  overflow: hidden;
+  background: #2D5016;
+  border-block: 1px solid rgba(200, 230, 192, 0.18);
+  padding: 16px 0;
+  transform: rotate(-1deg) scale(1.02);
+  margin-block: 8px;
+}
+.marquee-track {
   display: flex;
-  flex-direction: column;
+  width: max-content;
+  will-change: transform;
+}
+.marquee-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 22px;
+  padding-right: 22px;
+  white-space: nowrap;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #F0F7EC;
+}
+.marquee-sep { color: #7DB85A; font-size: 12px; }
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { flex-wrap: wrap; width: auto; justify-content: center; }
+}
+
+/* ─── Situações (substitui os depoimentos) ─── */
+.situacao-card {
+  display: flex;
+  align-items: flex-start;
   gap: 14px;
-  box-shadow:
-    0 1px 2px rgba(45, 80, 22, 0.05),
-    0 8px 24px rgba(45, 80, 22, 0.06);
-  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
-              box-shadow 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+  width: 100%;
+  padding: 18px 20px;
+  border-radius: 18px;
+  background: #fff;
+  border: 1px solid rgba(200, 230, 192, 0.8);
+  cursor: pointer;
+  transition: border-color .25s ease, box-shadow .3s cubic-bezier(0.22, 1, 0.36, 1), transform .3s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.testimonial-card::before {
-  content: '“';
+.situacao-card:hover { border-color: rgba(125, 184, 90, 0.7); transform: translateX(4px); }
+.situacao-card.is-active {
+  border-color: #4A7C2F;
+  box-shadow: 0 0 0 3px rgba(125, 184, 90, 0.18), 0 16px 36px rgba(45, 80, 22, 0.14);
+}
+.situacao-card:focus-visible { outline: 2px solid #4A7C2F; outline-offset: 3px; }
+.situacao-icon {
+  display: flex; align-items: center; justify-content: center;
+  width: 42px; height: 42px; flex-shrink: 0;
+  border-radius: 12px;
+  color: #2D5016;
+  background: linear-gradient(135deg, rgba(200,230,192,0.95), rgba(125,184,90,0.3));
+  transition: background .25s ease, color .25s ease;
+}
+.situacao-card.is-active .situacao-icon { background: linear-gradient(135deg, #2D5016, #4A7C2F); color: #F0F7EC; }
+.situacao-painel {
+  position: relative;
+  overflow: hidden;
+  min-height: 460px;
+  border-radius: 24px;
+  isolation: isolate;
+  box-shadow: 0 24px 60px rgba(31, 58, 15, 0.28);
+}
+
+/* ─── WhatsApp flutuante ─── */
+.wa-float {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 70;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background: #25D366;
+  box-shadow: 0 10px 28px rgba(37, 211, 102, 0.45), 0 2px 6px rgba(0,0,0,0.15);
+}
+.wa-float:hover { transform: scale(1.06); }
+.wa-float-ring {
   position: absolute;
-  top: -14px;
-  left: 18px;
-  font-family: var(--font-display);
-  font-size: 90px;
-  line-height: 1;
-  color: rgba(125, 184, 90, 0.22);
-  pointer-events: none;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid #25D366;
+  animation: wa-ring 2.2s ease-out infinite;
 }
-.testimonial-card:hover {
-  transform: translateY(-4px);
-  box-shadow:
-    0 1px 2px rgba(45, 80, 22, 0.06),
-    0 16px 36px rgba(45, 80, 22, 0.12);
+@keyframes wa-ring {
+  0%   { transform: scale(1);   opacity: .7; }
+  100% { transform: scale(1.6); opacity: 0; }
 }
+body.menu-open .wa-float { display: none; }
 
 /* ─── Reduced motion ─── */
 @media (prefers-reduced-motion: reduce) {

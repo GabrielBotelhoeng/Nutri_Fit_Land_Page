@@ -1,43 +1,32 @@
-// Fonte única de dados do nutricionista exibidos na landing.
-// Cada campo aceita override via env var NEXT_PUBLIC_* — se ausente, usa o
-// placeholder atual (Camila Rocha) que serve como demo/portfólio até fechar
-// o primeiro cliente. Ao onboardar um nutri real, popular o .env.local com
-// os dados dele e reiniciar o dev server / rebuildar.
+// Fonte única de dados da marca e (opcionalmente) do nutricionista parceiro.
+//
+// A landing fala na voz da marca NutriChat. Não existe mais nutricionista de
+// placeholder: nome, CRN e especialidade só aparecem quando um profissional
+// REAL é configurado via NEXT_PUBLIC_NUTRI_* — sem isso, nenhum dado de pessoa
+// é exibido. Nunca coloque aqui um nome ou CRN inventado: registro profissional
+// fictício numa página pública é exercício irregular da profissão.
 
-export const nutri = {
-  primeiroNome:
-    process.env.NEXT_PUBLIC_NUTRI_PRIMEIRO_NOME ?? 'Camila',
-  nomeCompleto:
-    process.env.NEXT_PUBLIC_NUTRI_NOME_COMPLETO ?? 'Camila Rocha',
-  iniciais:
-    process.env.NEXT_PUBLIC_NUTRI_INICIAIS ?? 'C',
-  marca:
-    process.env.NEXT_PUBLIC_NUTRI_MARCA ?? 'Camila Rocha Nutrição',
+const env = (v: string | undefined) => (v && v.trim() ? v.trim() : undefined)
 
-  crn:
-    process.env.NEXT_PUBLIC_NUTRI_CRN ?? 'CRN-3 12.345',
-  // Só a sigla regional (usada isolada no StatsSection).
-  crnSigla:
-    process.env.NEXT_PUBLIC_NUTRI_CRN_SIGLA ?? 'CRN-3',
+const nomeCompleto = env(process.env.NEXT_PUBLIC_NUTRI_NOME_COMPLETO)
+const crn = env(process.env.NEXT_PUBLIC_NUTRI_CRN)
 
-  // "Nutricionista clínica" com inicial maiúscula (usado em títulos/labels).
-  especialidade:
-    process.env.NEXT_PUBLIC_NUTRI_ESPECIALIDADE ?? 'Nutricionista clínica',
-  // Mesma coisa em minúscula pra ficar bem no meio de frase.
-  especialidadeInline:
-    process.env.NEXT_PUBLIC_NUTRI_ESPECIALIDADE_INLINE ?? 'nutricionista clínica',
+export const marca = env(process.env.NEXT_PUBLIC_NUTRI_MARCA) ?? 'NutriChat'
 
-  // Concordância de gênero pra copy conversacional.
-  // Feminino:  artigo="a", pronome="ela", registrado="registrada"
-  // Masculino: artigo="o", pronome="ele", registrado="registrado"
-  artigo:
-    process.env.NEXT_PUBLIC_NUTRI_ARTIGO ?? 'a',
-  pronome:
-    process.env.NEXT_PUBLIC_NUTRI_PRONOME ?? 'ela',
-  registrado:
-    process.env.NEXT_PUBLIC_NUTRI_REGISTRADO ?? 'registrada',
-} as const
-
-// Helpers pra capitalização quando "ela"/"a" aparecem em início de frase.
-export const artigoCapitalizado = nutri.artigo.charAt(0).toUpperCase() + nutri.artigo.slice(1)
-export const pronomeCapitalizado = nutri.pronome.charAt(0).toUpperCase() + nutri.pronome.slice(1)
+// Só existe nutricionista na página quando nome E CRN foram configurados.
+export const nutri =
+  nomeCompleto && crn
+    ? {
+        nomeCompleto,
+        crn,
+        especialidade: env(process.env.NEXT_PUBLIC_NUTRI_ESPECIALIDADE) ?? 'Nutricionista',
+        iniciais:
+          env(process.env.NEXT_PUBLIC_NUTRI_INICIAIS) ??
+          nomeCompleto
+            .split(/\s+/)
+            .map((p) => p[0])
+            .slice(0, 2)
+            .join('')
+            .toUpperCase(),
+      }
+    : null

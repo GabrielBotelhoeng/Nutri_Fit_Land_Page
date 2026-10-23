@@ -12,8 +12,7 @@ para uma conversa direta no WhatsApp.
 |---|---|
 | Framework | Next.js 16 (App Router) + React 19 + TypeScript |
 | Estilo | Tailwind v4 (`@theme` com 9 tokens de cor) |
-| 3D | Three.js via `@react-three/fiber` + `@react-three/drei` |
-| Animação | Framer Motion |
+| Animação | Framer Motion (UI) + GSAP/ScrollTrigger (scroll, marquee, contadores) |
 | Ícones | Lucide React |
 | Deploy | Vercel (auto-deploy do branch `main`) |
 
@@ -34,26 +33,20 @@ npm run dev
 
 ## Variáveis de ambiente
 
-Todas são `NEXT_PUBLIC_*` — o Next.js embute no bundle no momento do build,
-então **toda mudança exige rebuild ou reinício do dev server**.
+Todas são `NEXT_PUBLIC_*`: o Next.js embute no bundle no build, então
+**toda mudança exige rebuild ou reinício do dev server**.
 
 | Var | Uso |
 |---|---|
-| `NEXT_PUBLIC_WHATSAPP_NUMBER` | Número do nutricionista (DDI+DDD+número, sem `+` ou espaços). Alimenta os links `wa.me` de todos os CTAs. |
-| `NEXT_PUBLIC_NUTRI_PRIMEIRO_NOME` | Primeiro nome (aparece no Hero e Header) |
-| `NEXT_PUBLIC_NUTRI_NOME_COMPLETO` | Nome completo (Footer, StatsSection) |
-| `NEXT_PUBLIC_NUTRI_INICIAIS` | 1–2 letras no avatar circular |
-| `NEXT_PUBLIC_NUTRI_MARCA` | Marca / razão social (Footer) |
-| `NEXT_PUBLIC_NUTRI_CRN` | CRN completo (sigla + número) |
-| `NEXT_PUBLIC_NUTRI_CRN_SIGLA` | Só a sigla regional (StatsSection) |
-| `NEXT_PUBLIC_NUTRI_ESPECIALIDADE` | Especialidade capitalizada (títulos) |
-| `NEXT_PUBLIC_NUTRI_ESPECIALIDADE_INLINE` | Especialidade minúscula (meio de frase) |
-| `NEXT_PUBLIC_NUTRI_ARTIGO` | `a` ou `o` |
-| `NEXT_PUBLIC_NUTRI_PRONOME` | `ela` ou `ele` |
-| `NEXT_PUBLIC_NUTRI_REGISTRADO` | `registrada` ou `registrado` |
+| `NEXT_PUBLIC_WHATSAPP_NUMBER` | Número que recebe os CTAs (DDI+DDD+número). Alimenta os links `wa.me`. |
+| `NEXT_PUBLIC_NUTRI_MARCA` | Marca no Header/Footer/título. Padrão: `NutriChat`. |
+| `NEXT_PUBLIC_NUTRI_NOME_COMPLETO` | *Opcional.* Nome do nutricionista parceiro **real**. |
+| `NEXT_PUBLIC_NUTRI_CRN` | *Opcional.* CRN real (sigla + número). |
+| `NEXT_PUBLIC_NUTRI_ESPECIALIDADE` | *Opcional.* Ex.: `Nutricionista clínica`. |
+| `NEXT_PUBLIC_NUTRI_INICIAIS` | *Opcional.* Letras do avatar (calculadas do nome se ausente). |
 
-Se qualquer `NEXT_PUBLIC_NUTRI_*` estiver ausente, `lib/nutricionista.ts`
-faz fallback para o placeholder `Camila Rocha` (modo demo).
+A landing fala na voz da marca. **Não há nutricionista de placeholder**: nome
+e CRN só aparecem quando nome **e** CRN estão preenchidos com dados reais.
 
 ## Build de produção
 
@@ -83,15 +76,17 @@ vercel --prod
 app/                  # App Router (page.tsx + layout.tsx)
 components/           # Hero, Plans, Footer, PhoneCanvas, StatsSection, ...
 lib/
-  nutricionista.ts    # Fonte única dos dados do nutri (lê NEXT_PUBLIC_NUTRI_*)
+  nutricionista.ts    # Marca + nutri real opcional (lê NEXT_PUBLIC_NUTRI_*)
+  gsap.ts             # Registro único dos plugins GSAP
   whatsapp.ts         # waLink(label) — monta wa.me com msg pré-preenchida
   animations.ts       # Variantes Framer Motion reutilizáveis
-public/
-  hero-phone-static.webp   # Fallback do celular 3D em mobile
+public/img/           # Imagens geradas no Higgsfield (comida/cenas, sem pessoas)
 ```
 
-## Responsividade
+## O celular do Hero
 
-O celular 3D (Three.js) roda apenas em telas `>= 768px`. Em mobile, é
-substituído pela imagem estática `public/hero-phone-static.webp` via
-dynamic import com `ssr: false`.
+`components/PhoneDemo.tsx` é uma demo interativa em HTML (sem WebGL), igual em
+desktop e mobile. O visitante toca em Foto/Áudio/Código pra disparar a conversa,
+e cada refeição registrada alimenta as abas **Hoje** (anel de kcal, macros, água
+clicável) e **Semana** (barras clicáveis). Sem interação, um autoplay percorre o
+roteiro; ele para no primeiro toque e pausa fora da tela.

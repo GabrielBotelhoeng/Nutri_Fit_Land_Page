@@ -1,23 +1,10 @@
 'use client'
 
-import dynamic from 'next/dynamic'
 import { motion, useReducedMotion } from 'framer-motion'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Check } from 'lucide-react'
 import { waLink } from '@/lib/whatsapp'
 import { nutri } from '@/lib/nutricionista'
-
-const PhoneCanvas = dynamic(() => import('./PhoneCanvas'), {
-  ssr: false,
-  loading: () => (
-    <div
-      className="absolute inset-0 rounded-2xl"
-      style={{
-        background:
-          'linear-gradient(135deg, rgba(200,230,192,0.5), rgba(125,184,90,0.18))',
-      }}
-    />
-  ),
-})
+import PhoneDemo from './PhoneDemo'
 
 const easeOut = [0.22, 1, 0.36, 1] as const
 
@@ -36,36 +23,6 @@ const floatContainer = {
 const floatItem = {
   hidden: { opacity: 0, y: 20, scale: 0.92 },
   visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.55, ease: easeOut } },
-}
-
-function FloatingMacroCard() {
-  return (
-    <motion.div
-      variants={floatItem}
-      whileHover={{ rotate: -2, scale: 1.04 }}
-      transition={{ type: 'spring', stiffness: 280, damping: 18 }}
-      className="hero-float-card hero-float-card--left-mid"
-      style={{
-        animation: 'hero-float 3s ease-in-out infinite',
-        animationDelay: '0s',
-        minWidth: 158,
-      }}
-    >
-      <div
-        style={{
-          width: 36, height: 36, borderRadius: 10, background: '#F0F7EC',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          fontSize: 18, flexShrink: 0,
-        }}
-      >
-        🥩
-      </div>
-      <div>
-        <div style={{ fontSize: 12, color: '#A0694A', fontWeight: 600 }}>Proteína</div>
-        <div style={{ fontSize: 15, color: '#2D5016', fontWeight: 700 }}>48g ✓</div>
-      </div>
-    </motion.div>
-  )
 }
 
 function FloatingNotification() {
@@ -95,7 +52,7 @@ function FloatingNotification() {
       </div>
       <div>
         <div style={{ fontSize: 11, color: '#25D366', fontWeight: 700, marginBottom: 3 }}>
-          {nutri.primeiroNome} • agora
+          NutriChat • agora
         </div>
         <div style={{ fontSize: 13, color: '#2D5016', lineHeight: 1.4, fontWeight: 500 }}>
           🔔 Hora do almoço, registra aí?
@@ -105,81 +62,43 @@ function FloatingNotification() {
   )
 }
 
-function FloatingProgress() {
-  return (
-    <motion.div
-      variants={floatItem}
-      whileHover={{ rotate: -1.5, scale: 1.04 }}
-      transition={{ type: 'spring', stiffness: 280, damping: 18 }}
-      className="hero-float-card hero-float-card--right-bot"
-      style={{
-        animation: 'hero-float 3.2s ease-in-out infinite',
-        animationDelay: '0.5s',
-        minWidth: 178,
-        flexDirection: 'column',
-        alignItems: 'stretch',
-        gap: 0,
-      }}
-    >
-      <div style={{ fontSize: 12, color: '#A0694A', fontWeight: 600, marginBottom: 7 }}>
-        Meta de hoje
-      </div>
-      <div
-        style={{
-          height: 7, background: '#F0F7EC', borderRadius: 999,
-          overflow: 'hidden', marginBottom: 6,
-        }}
-      >
-        <motion.div
-          initial={{ width: 0 }}
-          animate={{ width: '68%' }}
-          transition={{ duration: 1.4, delay: 1.2, ease: easeOut }}
+function Assinatura() {
+  if (nutri) {
+    return (
+      <motion.div variants={heroItem} className="flex items-center gap-3 mt-8">
+        <div
+          className="flex items-center justify-center rounded-full flex-shrink-0"
           style={{
-            height: '100%',
-            background: 'linear-gradient(90deg, #4A7C2F, #7DB85A)',
-            borderRadius: 999,
+            width: 52, height: 52,
+            background: 'linear-gradient(135deg, #2D5016, #4A7C2F)',
+            color: '#F0F7EC',
+            fontFamily: 'var(--font-display), Georgia, serif',
+            fontSize: 22,
+            boxShadow: '0 4px 14px rgba(45,80,22,0.28)',
           }}
-        />
-      </div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div style={{ fontSize: 13, color: '#2D5016', fontWeight: 700 }}>68%</div>
-        <div style={{ fontSize: 11, color: '#A0694A', fontWeight: 500 }}>1.632 / 2.400 kcal</div>
-      </div>
-    </motion.div>
-  )
-}
-
-function NutricionistaAssinatura() {
+        >
+          {nutri.iniciais}
+        </div>
+        <div className="text-left">
+          <p className="font-display m-0 text-[17px] leading-tight text-floresta">{nutri.nomeCompleto}</p>
+          <p className="m-0 mt-0.5 text-[13px] text-[#6B5340]">
+            {nutri.especialidade} · {nutri.crn}
+          </p>
+        </div>
+      </motion.div>
+    )
+  }
   return (
-    <motion.div variants={heroItem} className="flex items-center gap-3 mt-8">
-      <div
-        style={{
-          width: 52, height: 52, borderRadius: '50%',
-          background: 'linear-gradient(135deg, #2D5016, #4A7C2F)',
-          color: '#F0F7EC',
-          fontFamily: 'var(--font-display), Georgia, serif',
-          fontSize: 22, fontWeight: 400,
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          boxShadow: '0 4px 14px rgba(45,80,22,0.28)',
-          flexShrink: 0,
-        }}
-      >
-        {nutri.iniciais}
-      </div>
-      <div>
-        <p style={{
-          fontFamily: 'var(--font-display), Georgia, serif',
-          fontSize: 17, color: '#2D5016', margin: 0, lineHeight: 1.2,
-        }}>
-          {nutri.nomeCompleto}
-        </p>
-        <p style={{
-          fontSize: 13, color: '#6B5340', margin: 0, marginTop: 2,
-        }}>
-          {nutri.especialidade} · {nutri.crn}
-        </p>
-      </div>
-    </motion.div>
+    <motion.ul variants={heroItem} className="mt-8 flex flex-wrap justify-center md:justify-start gap-x-5 gap-y-2 p-0 list-none">
+      {['Sem app pra baixar', 'Sem login', 'Plano feito por nutricionista'].map((t) => (
+        <li key={t} className="flex items-center gap-1.5 text-[13px] font-medium text-[#4A3122]">
+          <span className="flex h-[18px] w-[18px] items-center justify-center rounded-full bg-menta text-floresta">
+            <Check size={11} strokeWidth={3} />
+          </span>
+          {t}
+        </li>
+      ))}
+    </motion.ul>
   )
 }
 
@@ -216,7 +135,7 @@ export default function Hero() {
           variants={heroContainer}
         >
           <motion.p variants={heroItem} className="eyebrow mb-6 md:mb-7">
-            Acompanhamento nutricional · 1:1
+            Acompanhamento nutricional no WhatsApp
           </motion.p>
 
           <motion.h1
@@ -231,9 +150,9 @@ export default function Hero() {
             className="lead mb-9 text-pretty mx-auto md:mx-0"
             style={{ maxWidth: 480 }}
           >
-            Sou {nutri.artigo} {nutri.primeiroNome}, {nutri.especialidadeInline}. Acompanho cada paciente pelo WhatsApp todos
-            os dias — sem app pra baixar, sem login, sem planilha. Você manda foto
-            do prato, eu vejo. Você esquece de comer, eu lembro.
+            O NutriChat segue o plano do seu nutricionista com você, todo dia, no
+            WhatsApp. Você manda a foto do prato e ele registra, soma os macros e
+            lembra da próxima refeição. Sem app, sem login, sem planilha.
           </motion.p>
 
           <motion.div
@@ -254,7 +173,7 @@ export default function Hero() {
                 fontSize: 15,
               }}
             >
-              Agendar minha avaliação
+              Começar pelo WhatsApp
               <ArrowRight size={18} className="btn-arrow" strokeWidth={2.4} />
             </a>
             <a
@@ -274,12 +193,12 @@ export default function Hero() {
                 fontSize: 15,
               }}
             >
-              Como eu trabalho
+              Ver como funciona
             </a>
           </motion.div>
 
           <div className="flex justify-center md:justify-start">
-            <NutricionistaAssinatura />
+            <Assinatura />
           </div>
         </motion.div>
 
@@ -292,12 +211,8 @@ export default function Hero() {
         >
           <div className="hero-canvas-col">
             <div aria-hidden className="hero-spotlight" />
-            <div className="hero-canvas-stage">
-              <PhoneCanvas />
-            </div>
-            <FloatingMacroCard />
+            <PhoneDemo />
             <FloatingNotification />
-            <FloatingProgress />
           </div>
         </motion.div>
       </div>

@@ -6,18 +6,18 @@ import { ClipboardList, MessageCircle, TrendingUp } from 'lucide-react'
 const steps = [
   {
     icon: ClipboardList,
-    title: 'Você marca uma avaliação comigo',
-    desc: 'A gente conversa sobre seu corpo, sua rotina e o que você já tentou. Eu monto um plano pensando em você — não copio nada de ninguém.',
+    title: 'Você conversa com um nutricionista',
+    desc: 'Seu corpo, sua rotina, o que você já tentou. O plano é montado por um profissional, pensando em você. Nada de dieta copiada.',
   },
   {
     icon: MessageCircle,
-    title: 'A gente fala todo dia pelo WhatsApp',
-    desc: 'Você manda foto do prato, áudio, ou só me conta como foi. Eu respondo, ajusto, e te lembro das coisas — sem precisar baixar nenhum app.',
+    title: 'O NutriChat acompanha você todo dia',
+    desc: 'Foto do prato, áudio ou texto no WhatsApp. Ele registra, soma os macros e lembra da próxima refeição, sem app nenhum.',
   },
   {
     icon: TrendingUp,
-    title: 'Eu acompanho sua evolução semana a semana',
-    desc: 'Todo domingo eu te mando um resumo da semana e a gente afina o plano. É consultório, só que no celular.',
+    title: 'Toda semana, o plano é ajustado',
+    desc: 'O resumo de domingo mostra onde você foi bem e onde escorregou. Com ele, o plano é afinado com o seu nutricionista.',
   },
 ]
 
@@ -38,12 +38,12 @@ export default function HowItWorks() {
       />
       <div className="relative z-[2] max-w-[1152px] mx-auto px-4 md:px-6 lg:px-8">
         <div className="text-center mb-20 md:mb-28">
-          <p className="eyebrow mb-7">Como eu trabalho</p>
+          <p className="eyebrow mb-7">Como funciona</p>
           <h2 className="hd-2 mb-8 md:mb-10 text-balance">
             Três passos pra você sair do achismo
           </h2>
           <p className="lead max-w-lg mx-auto text-pretty">
-            Sem mistério. Você marca, a gente conversa, eu te acompanho.
+            Sem mistério: plano de nutricionista, acompanhamento diário e ajuste toda semana.
           </p>
         </div>
 
