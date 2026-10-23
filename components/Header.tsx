@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { createPortal } from 'react-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowRight, Leaf, Menu, X } from 'lucide-react'
-import { waLink } from '@/lib/whatsapp'
+import { waLink, whatsappAtivo } from '@/lib/whatsapp'
 import { marca, nutri } from '@/lib/nutricionista'
 
 const navLinks = [
@@ -128,8 +128,8 @@ export default function Header() {
             href={waLink()}
             className="btn-wa-glow flex min-h-[44px] items-center gap-2 rounded-lg bg-floresta px-5 text-sm font-semibold text-offwhite no-underline"
           >
-            <WhatsAppIcon />
-            Começar agora
+            {whatsappAtivo && <WhatsAppIcon />}
+            {whatsappAtivo ? 'Começar agora' : 'Lista de espera'}
           </a>
         </nav>
 
@@ -208,8 +208,8 @@ export default function Header() {
                     href={waLink()}
                     className="btn-cta flex min-h-[56px] items-center justify-center gap-2 rounded-xl text-base font-semibold text-offwhite no-underline"
                   >
-                    <WhatsAppIcon />
-                    Começar agora
+                    {whatsappAtivo && <WhatsAppIcon />}
+                    {whatsappAtivo ? 'Começar agora' : 'Entrar na lista de espera'}
                   </a>
                 </motion.div>
               </motion.div>

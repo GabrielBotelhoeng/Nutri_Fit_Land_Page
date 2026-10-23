@@ -12,6 +12,7 @@ import Plans from '@/components/Plans'
 import CtaFinal from '@/components/CtaFinal'
 import Footer from '@/components/Footer'
 import FloatingWhatsApp from '@/components/FloatingWhatsApp'
+import ListaEspera from '@/components/ListaEspera'
 
 export default function Home() {
   return (
@@ -30,6 +31,7 @@ export default function Home() {
       <CtaFinal />
       <Footer />
       <FloatingWhatsApp />
+      <ListaEspera />
     </main>
   )
 }

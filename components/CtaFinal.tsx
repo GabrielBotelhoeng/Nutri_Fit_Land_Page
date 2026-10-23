@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
-import { waLink } from '@/lib/whatsapp'
+import { waLink, whatsappAtivo } from '@/lib/whatsapp'
 
 export default function CtaFinal() {
   return (
@@ -68,7 +68,7 @@ export default function CtaFinal() {
             className="btn-cta inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-bold text-base"
             style={{ minHeight: '56px', color: '#F0F7EC' }}
           >
-            Começar pelo WhatsApp
+            {whatsappAtivo ? 'Começar pelo WhatsApp' : 'Entrar na lista de espera'}
             <ArrowRight size={20} className="btn-arrow" strokeWidth={2.4} />
           </a>
           <a

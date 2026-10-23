@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion } from 'framer-motion'
 import { ArrowRight, Check } from 'lucide-react'
-import { waLink } from '@/lib/whatsapp'
+import { waLink, whatsappAtivo } from '@/lib/whatsapp'
 import { nutri } from '@/lib/nutricionista'
 import PhoneDemo from './PhoneDemo'
 
@@ -158,7 +158,7 @@ export default function Hero() {
                 fontSize: 15,
               }}
             >
-              Começar pelo WhatsApp
+              {whatsappAtivo ? 'Começar pelo WhatsApp' : 'Entrar na lista de espera'}
               <ArrowRight size={18} className="btn-arrow" strokeWidth={2.4} />
             </a>
             <a
