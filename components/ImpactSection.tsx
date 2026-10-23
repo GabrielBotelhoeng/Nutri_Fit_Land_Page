@@ -1,12 +1,42 @@
 'use client'
 
+import { useRef } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import { waLink } from '@/lib/whatsapp'
+import { gsap, useGSAP } from '@/lib/gsap'
+
+const FRASE = 'Você já teve a dieta certa. O que faltou foi alguém andar junto.'
+// Palavras que ganham destaque em verde-claro quando acendem.
+const DESTAQUE = new Set(['alguém', 'andar', 'junto.'])
 
 export default function ImpactSection() {
+  const root = useRef<HTMLElement>(null)
+
+  /* As palavras "acendem" uma a uma conforme a rolagem (scrub): a frase é lida
+     no ritmo do scroll. Com movimento reduzido, a frase aparece inteira. */
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia()
+      mm.add('(prefers-reduced-motion: no-preference)', () => {
+        gsap.fromTo(
+          '.impact-word',
+          { opacity: 0.16 },
+          {
+            opacity: 1,
+            stagger: 0.1,
+            ease: 'none',
+            scrollTrigger: { trigger: '.impact-title', start: 'top 80%', end: 'bottom 45%', scrub: 0.6 },
+          },
+        )
+      })
+    },
+    { scope: root },
+  )
+
   return (
     <section
+      ref={root}
       className="section-dark-pattern relative overflow-hidden py-20 md:py-24"
       style={{ background: 'linear-gradient(135deg, #1F3A0F 0%, #2D5016 60%, #1F3A0F 100%)' }}
     >
@@ -50,20 +80,22 @@ export default function ImpactSection() {
           O que faltava
         </motion.p>
 
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.55, delay: 0.08 }}
-          className="font-display text-balance leading-[1.05] mb-6 tracking-tight"
-          style={{
-            color: '#F0F7EC',
-            fontSize: 'var(--fs-h1)',
-            fontWeight: 400,
-          }}
+        <h2
+          className="impact-title font-display text-balance leading-[1.05] mb-6 tracking-tight"
+          style={{ color: '#F0F7EC', fontSize: 'var(--fs-h1)', fontWeight: 400 }}
+          aria-label={FRASE}
         >
-          Você já teve a dieta certa. O que faltou foi alguém andar junto.
-        </motion.h2>
+          {FRASE.split(' ').map((w, i) => (
+            <span
+              key={i}
+              aria-hidden
+              className="impact-word inline-block"
+              style={{ color: DESTAQUE.has(w) ? '#A8D88A' : undefined, marginRight: '0.25em' }}
+            >
+              {w}
+            </span>
+          ))}
+        </h2>
 
         <motion.p
           initial={{ opacity: 0, y: 16 }}

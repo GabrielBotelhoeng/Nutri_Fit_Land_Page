@@ -184,8 +184,11 @@ body > * { position: relative; z-index: 2; }
 /* ─── Glass ─── */
 .glass {
   background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: blur(14px) saturate(140%);
-  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  /* Valor via variável: com valor literal o lightningcss do Turbopack funde as
+     duas declarações e só sobra a -webkit- (que o Chrome ignora). */
+  --glass-blur: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
   border: 1px solid rgba(255, 255, 255, 0.45);
 }
 
@@ -745,6 +748,37 @@ body.menu-open .wa-float { display: none; }
 }
 .drawer-row:active { color: #4A7C2F; }
 
+/* ─── Como funciona ─── */
+.hw-visual {
+  margin-top: auto;
+  padding: 14px;
+  border-radius: 14px;
+  background: #F3F8EF;
+}
+.hw-bar { transform-origin: bottom; }
+.hw-line {
+  position: absolute;
+  z-index: 3; /* por cima dos cards: liga um ícone ao outro */
+  background: linear-gradient(90deg, #7DB85A, #2D5016);
+  border-radius: 2px;
+  /* mobile: vertical, descendo do card até o próximo */
+  left: 50%;
+  top: 100%;
+  width: 2px;
+  height: 40px;
+  transform-origin: top;
+}
+@media (min-width: 768px) {
+  .hw-line {
+    /* desktop: horizontal, ligando o ícone de um passo ao do próximo */
+    left: calc(50% + 40px);
+    top: 60px;
+    width: calc(100% - 80px + 24px);
+    height: 2px;
+    transform-origin: left;
+  }
+}
+
 /* ─── Lista de espera (modal) ─── */
 .le-overlay {
   position: fixed;
@@ -755,8 +789,10 @@ body.menu-open .wa-float { display: none; }
   justify-content: center;
   padding: 16px;
   background: rgba(20, 38, 10, 0.55);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  /* Variável pelo mesmo motivo do .glass (lightningcss descarta o padrão) */
+  --le-blur: blur(6px);
+  -webkit-backdrop-filter: var(--le-blur);
+  backdrop-filter: var(--le-blur);
 }
 .le-dialog {
   position: relative;
