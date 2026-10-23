@@ -42,3 +42,6 @@ next-env.d.ts
 
 .vercel
 .env*
+
+# O exemplo não tem segredo e documenta as variáveis — versionado de propósito.
+!.env.example
