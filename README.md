@@ -14,7 +14,7 @@ para uma conversa direta no WhatsApp.
 | Estilo | Tailwind v4 (`@theme` com 9 tokens de cor) |
 | Animação | Framer Motion (UI) + GSAP/ScrollTrigger (scroll, marquee, contadores) |
 | Ícones | Lucide React |
-| Deploy | Vercel (auto-deploy do branch `main`) |
+| Deploy | Vercel (manual via CLI — ver abaixo) |
 
 ## Setup local
 
@@ -57,18 +57,21 @@ npm run start
 
 ## Deploy (Vercel)
 
-O repositório está conectado à Vercel: push em `main` dispara build e
-deploy automático.
+**O deploy é manual.** O repositório GitHub não está conectado à Vercel,
+então merge em `main` não publica nada sozinho. Depois do merge:
+
+```bash
+git checkout main && git pull
+npx vercel --prod
+```
+
+A pasta já está vinculada ao projeto (`.vercel/project.json`). Pra ter deploy
+automático a cada merge, conecte o repo em **Vercel → Project → Settings → Git**.
 
 - Env vars são configuradas em **Vercel → Project → Settings → Environment Variables**
 - Domínio: alias curto `nutrichat-landing-six.vercel.app`
 - Deployment Protection: **desligada** (landing é pública)
 
-Para deploy manual (raro):
-
-```bash
-vercel --prod
-```
 
 ## Estrutura
 
