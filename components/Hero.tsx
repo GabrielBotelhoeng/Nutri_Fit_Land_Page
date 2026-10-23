@@ -8,14 +8,6 @@ import PhoneDemo from './PhoneDemo'
 
 const easeOut = [0.22, 1, 0.36, 1] as const
 
-const heroContainer = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.1, delayChildren: 0.15 } },
-}
-const heroItem = {
-  hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: easeOut } },
-}
 const floatContainer = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.18, delayChildren: 0.6 } },
@@ -65,7 +57,7 @@ function FloatingNotification() {
 function Assinatura() {
   if (nutri) {
     return (
-      <motion.div variants={heroItem} className="flex items-center gap-3 mt-8">
+      <div className="flex items-center gap-3 mt-8">
         <div
           className="flex items-center justify-center rounded-full flex-shrink-0"
           style={{
@@ -85,11 +77,11 @@ function Assinatura() {
             {nutri.especialidade} · {nutri.crn}
           </p>
         </div>
-      </motion.div>
+      </div>
     )
   }
   return (
-    <motion.ul variants={heroItem} className="mt-8 flex flex-wrap justify-center md:justify-start gap-x-5 gap-y-2 p-0 list-none">
+    <ul className="mt-8 flex flex-wrap justify-center md:justify-start gap-x-5 gap-y-2 p-0 list-none">
       {['Sem app pra baixar', 'Sem login', 'Plano feito por nutricionista'].map((t) => (
         <li key={t} className="flex items-center gap-1.5 text-[13px] font-medium text-[#4A3122]">
           <span className="flex h-[18px] w-[18px] items-center justify-center rounded-full bg-menta text-floresta">
@@ -98,7 +90,7 @@ function Assinatura() {
           {t}
         </li>
       ))}
-    </motion.ul>
+    </ul>
   )
 }
 
@@ -128,36 +120,29 @@ export default function Hero() {
 
       <div className="hero-grid relative z-[2] max-w-[1152px] mx-auto w-full px-5 md:px-6 lg:px-8">
         {/* Coluna texto */}
-        <motion.div
-          className="min-w-0 order-2 md:order-1 text-center md:text-left"
-          initial={reduced ? false : 'hidden'}
-          animate="visible"
-          variants={heroContainer}
-        >
-          <motion.p variants={heroItem} className="eyebrow mb-6 md:mb-7">
+        {/* Entrada em CSS puro (classes hero-rise): roda antes da hidratação e o
+            título/parágrafo nunca começam invisíveis — senão o LCP espera o JS. */}
+        <div className="min-w-0 text-center md:text-left">
+          <p className="hero-rise eyebrow mb-6 md:mb-7">
             Acompanhamento nutricional no WhatsApp
-          </motion.p>
+          </p>
 
-          <motion.h1
-            variants={heroItem}
-            className="hd-display mb-7 md:mb-8 text-balance"
-          >
+          <h1 className="hero-rise hero-rise--solid hd-display mb-7 md:mb-8 text-balance" style={{ animationDelay: '60ms' }}>
             Sua dieta vira rotina quando alguém anda junto.
-          </motion.h1>
+          </h1>
 
-          <motion.p
-            variants={heroItem}
-            className="lead mb-9 text-pretty mx-auto md:mx-0"
-            style={{ maxWidth: 480 }}
+          <p
+            className="hero-rise hero-rise--solid lead mb-9 text-pretty mx-auto md:mx-0"
+            style={{ maxWidth: 480, animationDelay: '120ms' }}
           >
             O NutriChat segue o plano do seu nutricionista com você, todo dia, no
             WhatsApp. Você manda a foto do prato e ele registra, soma os macros e
             lembra da próxima refeição. Sem app, sem login, sem planilha.
-          </motion.p>
+          </p>
 
-          <motion.div
-            variants={heroItem}
-            className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start"
+          <div
+            className="hero-rise flex flex-col sm:flex-row gap-3 justify-center md:justify-start"
+            style={{ animationDelay: '200ms' }}
           >
             <a
               href={waLink()}
@@ -195,16 +180,16 @@ export default function Hero() {
             >
               Ver como funciona
             </a>
-          </motion.div>
+          </div>
 
-          <div className="flex justify-center md:justify-start">
+          <div className="hero-rise flex justify-center md:justify-start" style={{ animationDelay: '280ms' }}>
             <Assinatura />
           </div>
-        </motion.div>
+        </div>
 
         {/* Coluna 3D */}
         <motion.div
-          className="order-1 md:order-2"
+          className="mt-4 md:mt-0"
           initial={reduced ? false : 'hidden'}
           animate="visible"
           variants={floatContainer}

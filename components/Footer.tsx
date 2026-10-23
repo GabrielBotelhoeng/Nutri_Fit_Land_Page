@@ -63,7 +63,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-floresta/40 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-offwhite/50 text-xs">
+        <div className="border-t border-floresta/40 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-offwhite/75 text-xs">
           <p>© {new Date().getFullYear()} {marca}. Todos os direitos reservados.</p>
           <p>O NutriChat não substitui a consulta: ele leva o plano do seu nutricionista pro dia a dia.</p>
         </div>

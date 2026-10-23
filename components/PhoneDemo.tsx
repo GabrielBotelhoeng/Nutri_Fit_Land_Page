@@ -191,7 +191,7 @@ function ChatView({
                 {m.from === 'user' && m.kind === 'audio' && <AudioBubble />}
                 {m.text && <span>{m.text}</span>}
                 {m.from === 'bot' && m.meal && <MacroChips meal={m.meal} />}
-                <div className="mt-0.5 text-right text-[8.5px] text-[#8a9584]">
+                <div className="mt-0.5 text-right text-[8.5px] text-[#66705f]">
                   {m.hora}
                   {m.from === 'user' && <span className="ml-0.5 text-[#34B7F1]">✓✓</span>}
                 </div>
@@ -208,7 +208,7 @@ function ChatView({
             >
               <div className="flex gap-1 rounded-[3px_12px_12px_12px] bg-white px-3 py-2.5 shadow-[0_1px_1px_rgba(0,0,0,.08)]">
                 {[0, 1, 2].map((i) => (
-                  <span key={i} className="typing-dot h-1.5 w-1.5 rounded-full bg-[#7c8a74]" style={{ animationDelay: `${i * 0.16}s` }} />
+                  <span key={i} className="typing-dot h-1.5 w-1.5 rounded-full bg-[#66705f]" style={{ animationDelay: `${i * 0.16}s` }} />
                 ))}
               </div>
             </motion.div>
@@ -287,7 +287,7 @@ function Ring({ value, max }: { value: number; max: number }) {
         >
           {fmt(value)}
         </motion.span>
-        <span className="mt-1 text-[9px] text-[#7c6a58]">de {fmt(max)} kcal</span>
+        <span className="mt-1 text-[9px] text-[#66543f]">de {fmt(max)} kcal</span>
       </div>
     </div>
   )
@@ -317,7 +317,7 @@ function TodayView({
       <div className="rounded-2xl bg-white p-3 shadow-[0_1px_3px_rgba(45,80,22,.08)]">
         <div className="mb-1 flex items-center justify-between">
           <span className="text-[10.5px] font-semibold uppercase tracking-wider text-[#4A7C2F]">Hoje</span>
-          <span className="text-[9.5px] text-[#7c6a58]">
+          <span className="text-[9.5px] text-[#66543f]">
             faltam {fmt(Math.max(0, META_KCAL - tot.kcal))} kcal
           </span>
         </div>
@@ -327,7 +327,7 @@ function TodayView({
             <div key={m.k}>
               <div className="mb-0.5 flex justify-between text-[9.5px]">
                 <span className="font-semibold text-[#3b3026]">{m.k}</span>
-                <span className="text-[#7c6a58]">
+                <span className="text-[#66543f]">
                   {m.v}/{m.max} g
                 </span>
               </div>
@@ -351,7 +351,7 @@ function TodayView({
           <span className="flex items-center gap-1 text-[10.5px] font-semibold text-[#3b3026]">
             <Droplet size={11} className="text-[#3A9AD9]" fill="#3A9AD9" /> Água
           </span>
-          <span className="text-[9.5px] text-[#7c6a58]">
+          <span className="text-[9.5px] text-[#66543f]">
             {(water * 0.25).toFixed(2).replace('.', ',')} L de 2 L
           </span>
         </div>
@@ -382,7 +382,7 @@ function TodayView({
       {/* Refeições registradas */}
       <div className="mt-2.5 flex flex-col gap-1.5">
         {meals.length === 0 && (
-          <p className="rounded-xl border border-dashed border-[#c9dcbd] px-3 py-2.5 text-center text-[10px] text-[#7c6a58]">
+          <p className="rounded-xl border border-dashed border-[#c9dcbd] px-3 py-2.5 text-center text-[10px] text-[#66543f]">
             Nenhuma refeição ainda. Volte na Conversa e mande uma foto 📷
           </p>
         )}
@@ -398,7 +398,7 @@ function TodayView({
             </span>
             <div className="min-w-0 flex-1">
               <div className="text-[10.5px] font-semibold text-[#2b2219]">{m.nome}</div>
-              <div className="text-[9px] text-[#8a7a68]">{m.hora}</div>
+              <div className="text-[9px] text-[#6b5b49]">{m.hora}</div>
             </div>
             <span className="text-[10.5px] font-bold text-[#2D5016]">{m.kcal} kcal</span>
           </motion.div>
@@ -420,7 +420,7 @@ function WeekView({ hoje }: { hoje: number }) {
       <div className="rounded-2xl bg-white p-3 shadow-[0_1px_3px_rgba(45,80,22,.08)]">
         <div className="mb-3 flex items-center justify-between">
           <span className="text-[10.5px] font-semibold uppercase tracking-wider text-[#4A7C2F]">Semana</span>
-          <span className="text-[9.5px] text-[#7c6a58]">toque num dia</span>
+          <span className="text-[9.5px] text-[#66543f]">toque num dia</span>
         </div>
         <div className="relative flex h-[118px] items-end justify-between gap-1.5">
           {/* linha da meta */}
@@ -459,7 +459,7 @@ function WeekView({ hoje }: { hoje: number }) {
           {dias.map((x, i) => (
             <span
               key={x.dia}
-              className={`flex-1 text-center text-[9px] ${i === sel ? 'font-bold text-[#2D5016]' : 'text-[#8a7a68]'}`}
+              className={`flex-1 text-center text-[9px] ${i === sel ? 'font-bold text-[#2D5016]' : 'text-[#6b5b49]'}`}
             >
               {i === dias.length - 1 ? 'Hoje' : x.dia}
             </span>
@@ -478,7 +478,7 @@ function WeekView({ hoje }: { hoje: number }) {
               {sel === dias.length - 1 ? 'Hoje' : d.dia}
             </span>
             <span className="text-[13px] font-bold text-[#2D5016]">{fmt(d.kcal)} kcal</span>
-            <span className="text-[9.5px] text-[#7c6a58]">{Math.round((d.kcal / META_KCAL) * 100)}% da meta</span>
+            <span className="text-[9.5px] text-[#66543f]">{Math.round((d.kcal / META_KCAL) * 100)}% da meta</span>
           </motion.div>
         </AnimatePresence>
       </div>
@@ -665,7 +665,7 @@ export default function PhoneDemo() {
                     transition={{ type: 'spring', stiffness: 420, damping: 34 }}
                   />
                 )}
-                <span className={`relative ${tab === t.id ? 'text-[#2D5016]' : 'text-[#7c6a58]'}`}>{t.label}</span>
+                <span className={`relative ${tab === t.id ? 'text-[#2D5016]' : 'text-[#66543f]'}`}>{t.label}</span>
               </button>
             ))}
           </div>
